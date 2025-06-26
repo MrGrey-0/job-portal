@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md">
+    <h2 class="text-2xl font-bold mb-4">Create Job Opening</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Job Title -->
+            <div>
+                <label class="block mb-1 font-semibold">Job Title</label>
+                {{ form.title }}
+            </div>
+
+            <!-- Company Name -->
+            <div>
+                <label class="block mb-1 font-semibold">Company Name</label>
+                {{ form.company_name }}
+            </div>
+
+            <!-- Location -->
+            <div>
+                <label class="block mb-1 font-semibold">Location</label>
+                {{ form.location }}
+            </div>
+
+            <!-- Job Type -->
+            <div>
+                <label class="block mb-1 font-semibold">Job Type</label>
+                {{ form.job_type }}
+            </div>
+
+            <!-- Salary Min -->
+            <div>
+                <label class="block mb-1 font-semibold">Salary Min</label>
+                {{ form.salary_min }}
+            </div>
+
+            <!-- Salary Max -->
+            <div>
+                <label class="block mb-1 font-semibold">Salary Max</label>
+                {{ form.salary_max }}
+            </div>
+
+            <!-- Application Deadline -->
+            <div>
+                <label class="block mb-1 font-semibold">Application Deadline</label>
+                {{ form.application_deadline }}
+            </div>
+        </div>
+
+        <!-- Description -->
+        <div class="mt-4">
+            <label class="block mb-1 font-semibold">Job Description</label>
+            {{ form.description }}
+        </div>
+
+        <!-- Requirements -->
+        <div class="mt-4">
+            <label class="block mb-1 font-semibold">Requirements</label>
+            {{ form.requirements }}
+        </div>
+
+        <!-- Responsibilities -->
+        <div class="mt-4">
+            <label class="block mb-1 font-semibold">Responsibilities</label>
+            {{ form.responsibilities }}
+        </div>
+
+        <!-- Buttons -->
+        <div class="mt-6 flex justify-between">
+            <button type="submit" name="draft" class="border px-4 py-2 rounded">Save Draft</button>
+            <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600">Publish »</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

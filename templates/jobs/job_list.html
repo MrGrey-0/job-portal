@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<h1 class="text-2xl font-bold mb-4">Job Listings</h1>
+
+<!-- 🔍 Filter Form -->
+<form method="get" class="mb-6 grid grid-cols-1 md:grid-cols-5 gap-4">
+    <input type="text" name="title" placeholder="Search Job Title" class="p-2 border rounded" value="{{ request.GET.title }}">
+    <input type="text" name="location" placeholder="Preferred Location" class="p-2 border rounded" value="{{ request.GET.location }}">
+    <select name="job_type" class="p-2 border rounded">
+        <option value="">All Types</option>
+        <option value="FullTime" {% if request.GET.job_type == "FullTime" %}selected{% endif %}>Full Time</option>
+        <option value="PartTime" {% if request.GET.job_type == "PartTime" %}selected{% endif %}>Part Time</option>
+        <option value="Internship" {% if request.GET.job_type == "Internship" %}selected{% endif %}>Internship</option>
+        <option value="Contract" {% if request.GET.job_type == "Contract" %}selected{% endif %}>Contract</option>
+    </select>
+    <input type="number" name="salary_min" placeholder="Min ₹" class="p-2 border rounded" value="{{ request.GET.salary_min }}">
+    <input type="number" name="salary_max" placeholder="Max ₹" class="p-2 border rounded" value="{{ request.GET.salary_max }}">
+    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded col-span-1 md:col-span-5">Filter</button>
+</form>
+
+<!-- 🧾 Job Listings -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {% for job in jobs %}
+    <div class="bg-white p-6 rounded-lg shadow-md">
+        <div class="flex justify-between items-center mb-2">
+            <img src="{% static 'placeholder.png' %}" class="h-10 w-10 rounded-full" alt="Company Logo">
+            <span class="text-sm bg-blue-100 text-blue-600 px-3 py-1 rounded-full">24h Ago</span>
+        </div>
+        <h2 class="text-xl font-semibold">{{ job.title }}</h2>
+        <p class="text-gray-600">{{ job.company_name }}</p>
+        <div class="text-sm text-gray-500 mt-2">
+            🧑‍💻 1-3 yr Exp &nbsp;&bull;&nbsp; 📍 {{ job.location }} &nbsp;&bull;&nbsp; 💰 ₹{{ job.salary_min }} - ₹{{ job.salary_max }}
+        </div>
+        <p class="text-gray-700 mt-2">{{ job.description|slice:":100" }}...</p>
+        <a href="#" class="block mt-4 bg-blue-500 text-white text-center py-2 rounded hover:bg-blue-600">Apply Now</a>
+    </div>
+    {% empty %}
+    <p>No jobs available.</p>
+    {% endfor %}
+</div>
+{% endblock %}
